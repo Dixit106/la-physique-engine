@@ -13,7 +13,7 @@ class Particle:
         #F=ma, so a=F/m
         self.acceleration += force / self.mass   
 
-    def update(self):
+    def update(self, screen_width, screen_height):
         #Gravity(push or pull ? )
         gravity = pygame.math.Vector2(0, 0.5)
         self.apply_force(gravity)
@@ -22,6 +22,19 @@ class Particle:
         self.position += self.velocity
         self.velocity += self.acceleration 
         self.acceleration *= 0 #To reset acceleration for the next frame
+
+        #The bounce
+        if self.position.y > screen_height - self.radius:
+            self.position.y = screen_height - self.radius
+            self.velocity.y *= -0.8 #reverse velocity
+
+        #Left and Right Wall Collisions
+        if self.position.x > screen_width - self.radius:
+            self.position.x = screen_width - self.radius
+            self.velocity.x *= -0.8
+        elif self.position.x < self.radius:
+            self.position.x = self.radius
+            self.velocity.x *= -0.8        
 
     def draw(self, screen):
         #Drawing a circle to represent particle

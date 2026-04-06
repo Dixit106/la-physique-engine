@@ -28,7 +28,7 @@ while True:
 
     #to draw all elements
     #update everything
-    p1.update()
+    p1.update(800, 400)
     #setting max frame rate
     p1.draw(screen)
 
