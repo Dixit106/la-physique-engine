@@ -1,17 +1,20 @@
 #importing
 import pygame
 from sys import exit
+from particle import Particle 
 
 pygame.init()
 #display surface
 screen = pygame.display.set_mode((800,400))
 #the title 
-pygame.display.set_caption('Runner')
+pygame.display.set_caption('Physics Engine')
 #for setting max frame rate
 clock = pygame.time.Clock()
 
-test_surface = pygame.Surface((100,200))
-test_surface.fill('Green')
+#Test Particle
+p1 = Particle(100, 200, 20)
+#Movement
+p1.velocity.x = 2 
 
 while True:
     #to close window or else it's stuck
@@ -21,10 +24,13 @@ while True:
             exit()
 
 
-    screen.blit(test_surface,(0,0))
+    screen.fill((0, 0, 0))
 
     #to draw all elements
     #update everything
-    pygame.display.update()
+    p1.update()
     #setting max frame rate
+    p1.draw(screen)
+
+    pygame.display.update()
     clock.tick(60)
