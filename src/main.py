@@ -19,6 +19,9 @@ p2 = Particle(450, 100, 20)
 #Linking the spring
 link = Spring(p1, p2, 100, 0.05)
 
+#to keep track which ball we r holding
+dragged_particle = None 
+
 while True:
     #to close window or else it's stuck
     for event in pygame.event.get():
@@ -26,6 +29,26 @@ while True:
             pygame.quit()
             exit()
 
+        #when mouse is pressed down 
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            mouse_pos = pygame.math.Vector2(pygame.mouse.get_pos())
+            #to check if mouse is inside p1 or p2 
+            if mouse_pos.distance_to(p1.position) < p1.radius:
+                dragged_particle = p1 
+            elif mouse_pos.distance_to(p2.position) < p2.radius: 
+                dragged_particle = p2 
+
+        #when mouse released 
+        elif event.type == pygame.MOUSEBUTTONUP:
+            dragged_particle = None 
+
+    #if dragging particle snap it to mouse
+    if dragged_particle: 
+        mouse_x, mouse_y = pygame.mouse.get_pos()
+        dragged_particle.position.x = mouse_x 
+        dragged_particle.position.y = mouse_y 
+        #setting velocity 0 so no momentum builds up
+        dragged_particle.velocity *= 0                        
 
     screen.fill((0, 0, 0))
 
