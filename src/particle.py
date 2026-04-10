@@ -19,14 +19,19 @@ class Particle:
         self.apply_force(gravity)
 
         #Velocity changes postion (no shit sherlock)
-        self.position += self.velocity
+        self.position += self.velocity 
         self.velocity += self.acceleration 
+        self.velocity *= 0.95 
         self.acceleration *= 0 #To reset acceleration for the next frame
 
         #The bounce
         if self.position.y > screen_height - self.radius:
             self.position.y = screen_height - self.radius
             self.velocity.y *= -0.8 #reverse velocity
+
+            #FIX THE BOUNCE TOGETER
+            if abs(self.velocity.y) < 1.0:
+                self.velocity.y = 0 
 
         #Left and Right Wall Collisions
         if self.position.x > screen_width - self.radius:
