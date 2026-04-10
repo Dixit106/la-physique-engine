@@ -21,7 +21,7 @@ class Particle:
         #Velocity changes postion (no shit sherlock)
         self.position += self.velocity 
         self.velocity += self.acceleration 
-        self.velocity *= 0.95 
+        self.velocity *= 0.99
         self.acceleration *= 0 #To reset acceleration for the next frame
 
         #The bounce
@@ -43,4 +43,4 @@ class Particle:
 
     def draw(self, screen):
         #Drawing a circle to represent particle
-        pygame.draw.circle(screen, (255, 0, 0), (int(self.position.x), int(self.position.y)), self.radius)        
+        pygame.draw.circle(screen, (255, 0, 0), self.position, self.radius)        
